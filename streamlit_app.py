@@ -1,6 +1,6 @@
 import streamlit as st
 
-if st.session_state.img:
+if "img" in st.session_state:
     st.image(st.session_state.img)
 
 @st.dialog("Cast your vote")
