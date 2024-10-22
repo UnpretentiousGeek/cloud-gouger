@@ -6,7 +6,6 @@ def vote(item):
     reason = st.text_input("Because...")
     if st.button("Submit"):
         st.session_state.vote = {"item": item, "reason": reason}
-        st.rerun()
 
 
 if st.button("A"):
