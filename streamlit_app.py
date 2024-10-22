@@ -1,13 +1,15 @@
 import streamlit as st
 
+if st.session_state.img:
+    st.image(st.session_state.img)
+
 @st.dialog("Cast your vote")
-def vote(item):
-    st.write(f"Why is {item} your favorite?")
-    reason = st.text_input("Because...")
-    if st.button("Submit"):
-        st.session_state.vote = {"item": item, "reason": reason}
+def vote():
+    picture = st.camera_input("Take a picture", disabled=not enable)
+    if picture:
+        st.session_state.img = picture
+        st.rerun()
 
 
-if st.button("A"):
-    vote("A")
-st.write(f"Why is your favorite?")
+if st.button("take image"):
+    vote()
