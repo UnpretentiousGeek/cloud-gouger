@@ -1,10 +1,6 @@
 import streamlit as st
 from openai import OpenAI
 
-if "img" in st.session_state:
-    col1, col2 = st.columns([3, 1])
-    col2.image(st.session_state.img)
-
 @st.dialog("Cast your vote")
 def vote():
     
