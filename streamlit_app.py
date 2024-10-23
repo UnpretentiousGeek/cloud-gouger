@@ -35,10 +35,12 @@ if "messages" and "messages2" not in st.session_state:
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
-        if msg["content"][1]["type"] == "image_url":
-            st.image(msg["content"][1]["image_url"]) 
-        else:  
-            chat_msg = st.chat_message(msg["role"])
+        if isinstance(msg["content"], list) and len(msg["content"]) > 1:
+            if msg["content"][1].get("type") == "image_url":
+                col1, col2 = st.columns([3, 1])
+                col2.image(msg["content"][1]["image_url"])
+        else:
+            chat_msg = st.chat_message(msg["role"]) 
             chat_msg.write(msg["content"])
 
 if prompt := st.chat_input("What is up?"):
