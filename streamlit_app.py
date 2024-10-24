@@ -3,7 +3,8 @@ import streamlit as st
 import base64
 
 def encode_image(image_path):
-    return base64.b64encode(image_path).decode('utf-8')
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
   
 uploaded_file = st.file_uploader(
     "Upload a document")
@@ -37,4 +38,7 @@ if uploaded_file:
         )
 
     st.write_stream(stream)
+
+
+    
 
