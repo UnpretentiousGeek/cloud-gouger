@@ -39,6 +39,8 @@ for msg in st.session_state.messages:
             if msg["content"][1].get("type") == "image_url":
                 col1, col2 = st.columns([3, 1])
                 col2.image(msg["content"][1]["image_url"])
+                chat_msg = st.chat_message(msg["role"]) 
+                chat_msg.write(msg["content"][0].get("text"))
         else:
             chat_msg = st.chat_message(msg["role"]) 
             chat_msg.write(msg["content"])
