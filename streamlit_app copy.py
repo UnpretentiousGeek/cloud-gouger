@@ -59,7 +59,7 @@ if prompt := st.chat_input("What is up?"):
         {
           "type": "image_url",
           "image_url": {
-            "url": st.session_state.img,
+            "url": f"data:image/jpeg;base64,{st.session_state.img},
           },
         },
       ]})
