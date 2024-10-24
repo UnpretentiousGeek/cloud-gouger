@@ -28,7 +28,7 @@ model_to_use = "gpt-4o-mini"
 if 'client' not in st.session_state:
     st.session_state.client = OpenAI(api_key=st.secrets['openai_key'])
 
-if "messages" and "messages2" not in st.session_state:
+if "messages" not in st.session_state:
     st.session_state["messages"] = \
     [{"role": "system", "content": system_message},
      {"role": "assistant", "content": "How can I help you?"}]
