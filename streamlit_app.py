@@ -12,7 +12,7 @@ uploaded_file = st.file_uploader(
 image_path = "k2xnp9yctuw91.jpg"
 
 # Getting the base64 string
-base64_image = encode_image(uploaded_file)
+base64_image = encode_image(uploaded_file.getvalue())
 
 st.session_state.client = OpenAI(api_key=st.secrets['openai_key'])
 if uploaded_file:
