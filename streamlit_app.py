@@ -50,7 +50,7 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input("What is up?"):
     if "img" in st.session_state:
         col1, col2 = st.columns([3, 1])
-        img_data = base64.b64decode(msg["content"][1]["image_url"]["url"])
+        img_data = base64.b64decode(st.session_state.img)
         col2.image(img_data)
         with st.chat_message("user"):
             st.markdown(prompt)
