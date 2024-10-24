@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+import base64
 
 @st.dialog("Cast your vote")
 def vote():
@@ -7,7 +8,7 @@ def vote():
     enable = st.checkbox("Enable camera")
     picture = st.camera_input("Take a picture", disabled=not enable)
     if picture:
-        st.session_state.img = picture
+        st.session_state.img = base64.b64encode(picture.getvalue()).decode('utf-8')
         st.rerun()
 
 
@@ -38,7 +39,8 @@ for msg in st.session_state.messages:
         if isinstance(msg["content"], list) and len(msg["content"]) > 1:
             if msg["content"][1].get("type") == "image_url":
                 col1, col2 = st.columns([3, 1])
-                col2.image(msg["content"][1]["image_url"])
+                img_data = base64.b64decode(msg["content"][1]["image_url"]["url"])
+                col2.image(img_data)
                 chat_msg = st.chat_message(msg["role"]) 
                 chat_msg.write(msg["content"][0].get("text"))
         else:
@@ -48,7 +50,8 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input("What is up?"):
     if "img" in st.session_state:
         col1, col2 = st.columns([3, 1])
-        col2.image(st.session_state.img)
+        img_data = base64.b64decode(msg["content"][1]["image_url"]["url"])
+        col2.image(img_data)
         with st.chat_message("user"):
             st.markdown(prompt)
         st.session_state.messages.append({"role": "user", "content":[
