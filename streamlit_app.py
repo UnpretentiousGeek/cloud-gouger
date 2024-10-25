@@ -52,9 +52,8 @@ for msg in st.session_state.messages:
         if isinstance(msg["content"], list) and len(msg["content"]) > 1:
             if msg["content"][1].get("type") == "image_url":
                 col1, col2 = st.columns([3, 1])
-                img_data = base64.b64decode(msg["content"][1]["image_url"]["url"])
-                img = Image.open(BytesIO(img_data))
-                col2.image(img)
+                img_data = base64.b64decode(msg["content"][1]["image_url"]["url"].split(",")[1])
+                col2.image(img_data)
                 chat_msg = st.chat_message(msg["role"]) 
                 chat_msg.write(msg["content"][0].get("text"))
         else:
