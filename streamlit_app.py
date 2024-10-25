@@ -50,6 +50,7 @@ def preprocess(picture):
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
         
+        st.rerun()
 
 
 
