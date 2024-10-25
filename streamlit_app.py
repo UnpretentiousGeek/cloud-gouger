@@ -29,6 +29,13 @@ def cam():
     
     enable = st.checkbox("Enable camera")
     picture = st.camera_input("Take a picture", disabled=not enable)
+    preprocess(picture)
+
+
+
+
+
+def preprocess(picture):
 
     if picture:
         st.session_state.show_img = picture
@@ -41,12 +48,19 @@ def cam():
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
         
-        
         st.rerun()
 
 
-if st.sidebar.button("Camera 📷"):
+col1, col2 = st.sidebar.columns([1, 1])
+
+if col1.sidebar.button("Camera 📷"):
     cam()
+
+if col2.sidebar.button("Upload files ⬆️"):
+    uploaded_file = st.file_uploader(
+    "Upload a photo", type=("jpg", "png"))
+    preprocess(uploaded_file)
+
 
 if "show_img" in st.session_state:
     st.sidebar.image(st.session_state.show_img)
