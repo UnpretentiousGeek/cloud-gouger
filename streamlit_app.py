@@ -17,6 +17,9 @@ def vote():
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         file_path = os.path.join(IMAGE_FOLDER, f"image_{timestamp}.png")
 
+        with open(file_path, "wb") as file:
+            file.write(picture.getbuffer())
+
         # Save the image to the specified folder
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
