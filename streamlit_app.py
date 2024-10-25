@@ -65,6 +65,7 @@ for msg in st.session_state.messages:
             chat_msg.write(msg["content"])
 
 if prompt := st.chat_input("What is up?"):
+    del st.session_state["show_img"]
     if "img" in st.session_state:
         col1, col2 = st.columns([1, 3])
         img_data = base64.b64decode(st.session_state.img)
