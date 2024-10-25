@@ -40,6 +40,8 @@ def vote():
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
         
+        st.session_state.show_img =  st.sidebar.image(picture)
+        
         st.rerun()
 
 
@@ -77,6 +79,7 @@ if prompt := st.chat_input("What is up?"):
         },
       ]})
         del st.session_state["img"]
+        del st.session_state["show_img"]
 
     else:
         st.session_state.messages.append({"role": "user", "content": prompt})
