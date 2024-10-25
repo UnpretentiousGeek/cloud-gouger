@@ -47,7 +47,7 @@ def vote():
 if st.sidebar.button("take image"):
     vote()
 
-if st.session_state.img:
+if "img" in st.session_state:
     st.sidebar.image(st.session_state.img)
 
 for msg in st.session_state.messages:
