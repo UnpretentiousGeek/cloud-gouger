@@ -65,4 +65,6 @@ if "img" in st.session_state:
         ],
         }
     ],
+    stream = True
     )
+    st.write_stream(response)
