@@ -24,8 +24,8 @@ if "messages" not in st.session_state:
      {"role": "assistant", "content": "How can I help you?"}]
     
 
-@st.dialog("Cast your vote")
-def vote():
+@st.dialog("Take a Photo")
+def cam():
     
     enable = st.checkbox("Enable camera")
     picture = st.camera_input("Take a picture", disabled=not enable)
@@ -45,8 +45,8 @@ def vote():
         st.rerun()
 
 
-if st.sidebar.button("take image"):
-    vote()
+if st.sidebar.button("Camera 📷"):
+    cam()
 
 if "show_img" in st.session_state:
     st.sidebar.image(st.session_state.show_img)
