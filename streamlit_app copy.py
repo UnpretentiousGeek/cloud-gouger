@@ -5,20 +5,36 @@ import os
 import datetime
 
 
-IMAGE_FOLDER = "images"
-if not os.path.exists(IMAGE_FOLDER):
-    os.makedirs(IMAGE_FOLDER)
+st.title( "MY Lab3 question answering chatbot")
+
+
+system_message = '''
+You are a bot 
+'''
+
+
+if 'client' not in st.session_state:
+    st.session_state.client = OpenAI(api_key=st.secrets['openai_key'])
+
+if "messages" not in st.session_state:
+    st.session_state["messages"] = \
+    [{"role": "system", "content": system_message},
+     {"role": "assistant", "content": "How can I help you?"}]
+    
 
 @st.dialog("Cast your vote")
 def vote():
     
     enable = st.checkbox("Enable camera")
     picture = st.camera_input("Take a picture", disabled=not enable)
+
     if picture:
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        file_path = os.path.join(IMAGE_FOLDER, f"image_{timestamp}.png")
+        file_path = f"image_{timestamp}.png"
 
-        # Save the image to the specified folder
+        with open(file_path, "wb") as file:
+            file.write(picture.getbuffer())
+
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
         
@@ -28,24 +44,6 @@ def vote():
 if st.sidebar.button("take image"):
     vote()
 
-
-system_message = '''
-You are a bot 
-'''
-# Show title and description.
-st.title( "MY Lab3 question answering chatbot")
-
-model_to_use = "gpt-4o-mini"
-
-
-# Create an OpenAI client.
-if 'client' not in st.session_state:
-    st.session_state.client = OpenAI(api_key=st.secrets['openai_key'])
-
-if "messages" not in st.session_state:
-    st.session_state["messages"] = \
-    [{"role": "system", "content": system_message},
-     {"role": "assistant", "content": "How can I help you?"}]
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
@@ -86,7 +84,7 @@ if prompt := st.chat_input("What is up?"):
 
     client = st.session_state.client
     stream = client.chat.completions.create(
-        model=model_to_use,
+        model="gpt-4o-mini",
         messages=st.session_state.messages,
         stream=True
     )
