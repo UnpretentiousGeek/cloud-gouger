@@ -48,7 +48,7 @@ if st.sidebar.button("take image"):
     vote()
 
 if st.session_state.img:
-    st.sidebar.image(picture)
+    st.sidebar.image(st.session_state.img)
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
