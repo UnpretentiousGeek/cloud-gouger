@@ -31,10 +31,12 @@ def cam():
     picture = st.camera_input("Take a picture", disabled=not enable)
     preprocess(picture)
 
+@st.dialog("upload a file")
+def upl():
+    uploaded_file = st.sidebar.file_uploader("Upload a photo", type=("jpg", "png"))
+    preprocess(uploaded_file)
 
-
-
-
+    
 def preprocess(picture):
 
     if picture:
@@ -55,11 +57,8 @@ def preprocess(picture):
 if st.sidebar.button("Camera 📷"):
     cam()
 
-st.session_state.uploaded_file = st.sidebar.file_uploader(
-    "Upload a photo", type=("jpg", "png"))
-
 if st.sidebar.button("Upload files ⬆️"):
-    preprocess(st.session_state.uploaded_file)
+    upl()
 
 
 if "show_img" in st.session_state:
