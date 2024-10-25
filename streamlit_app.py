@@ -80,7 +80,7 @@ if prompt := st.chat_input("What is up?"):
         },
       ]})
         del st.session_state["img"]
-        del st.session_state["show_img"]
+        
 
     else:
         st.session_state.messages.append({"role": "user", "content": prompt})
