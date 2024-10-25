@@ -51,7 +51,7 @@ for msg in st.session_state.messages:
     if msg["role"] != "system":
         if isinstance(msg["content"], list) and len(msg["content"]) > 1:
             if msg["content"][1].get("type") == "image_url":
-                col1, col2 = st.columns([3, 1])
+                col1, col2 = st.columns([1, 3])
                 img_data = base64.b64decode(msg["content"][1]["image_url"]["url"].split(",")[1])
                 col1.image(img_data)
                 chat_msg = st.chat_message(msg["role"]) 
@@ -62,7 +62,7 @@ for msg in st.session_state.messages:
 
 if prompt := st.chat_input("What is up?"):
     if "img" in st.session_state:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([1, 3])
         img_data = base64.b64decode(st.session_state.img)
         col1.image(img_data)
         with st.chat_message("user"):
