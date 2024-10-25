@@ -1,6 +1,13 @@
 import streamlit as st
 from openai import OpenAI
 import base64
+import os
+import datetime
+
+
+IMAGE_FOLDER = "images"
+if not os.path.exists(IMAGE_FOLDER):
+    os.makedirs(IMAGE_FOLDER)
 
 @st.dialog("Cast your vote")
 def vote():
@@ -8,7 +15,13 @@ def vote():
     enable = st.checkbox("Enable camera")
     picture = st.camera_input("Take a picture", disabled=not enable)
     if picture:
-        st.session_state.img = base64.b64encode(picture.getvalue()).decode('utf-8')
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        file_path = os.path.join(IMAGE_FOLDER, f"image_{timestamp}.png")
+
+        # Save the image to the specified folder
+        with open(file_path, "rb") as image_file:
+             st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
+        
         st.rerun()
 
 
@@ -59,7 +72,7 @@ if prompt := st.chat_input("What is up?"):
         {
           "type": "image_url",
           "image_url": {
-            "url": f"data:image/jpeg;base64,{st.session_state.img},
+            "url": f"data:image/jpeg;base64,{st.session_state.img}",
           },
         },
       ]})
