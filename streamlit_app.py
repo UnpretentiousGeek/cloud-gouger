@@ -55,11 +55,11 @@ def preprocess(picture):
 if st.sidebar.button("Camera 📷"):
     cam()
 
+st.session_state.uploaded_file = st.sidebar.file_uploader(
+    "Upload a photo", type=("jpg", "png"))
 
-
-if files := st.sidebar.file_uploader(
-    "Upload a photo", type=("jpg", "png")):
-    preprocess(files)
+if st.sidebar.button("Upload files ⬆️"):
+    preprocess(st.session_state.uploaded_file)
 
 
 if "show_img" in st.session_state:
@@ -81,6 +81,8 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input("What is up?"):
     if "show_img" in st.session_state:
         del st.session_state["show_img"]
+    if "uploaded_file" in st.session_state:
+        del st.session_state["uploaded_file"]
     if "img" in st.session_state:
         col1, col2 = st.columns([1, 3])
         img_data = base64.b64decode(st.session_state.img)
