@@ -41,7 +41,6 @@ def preprocess(picture):
 
     if picture:
         st.session_state.show_img = picture
-        st.sidebar.image(st.session_state.show_img)
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         file_path = f"image_{timestamp}.png"
 
@@ -51,7 +50,6 @@ def preprocess(picture):
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
         
-        st.rerun()
 
 
 
@@ -61,6 +59,13 @@ if st.sidebar.button("Camera 📷"):
 if st.sidebar.button("Upload files ⬆️"):
     upl()
 
+
+if "show_img" in st.session_state:
+    st.sidebar.image(st.session_state.show_img)
+    if st.sidebar.button("Clear ❌"):
+        del st.session_state["img"]
+        del st.session_state["show_img"]
+        st.rerun()
 
 
 for msg in st.session_state.messages:
@@ -77,8 +82,7 @@ for msg in st.session_state.messages:
             chat_msg.write(msg["content"])
 
 if prompt := st.chat_input("What is up?"):
-    if "show_img" in st.session_state:
-        del st.session_state["show_img"]
+        
     if "img" in st.session_state:
         col1, col2 = st.columns([1, 3])
         img_data = base64.b64decode(st.session_state.img)
@@ -95,6 +99,7 @@ if prompt := st.chat_input("What is up?"):
         },
       ]})
         del st.session_state["img"]
+        del st.session_state["show_img"]
         
 
     else:
