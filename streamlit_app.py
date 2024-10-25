@@ -33,10 +33,10 @@ def cam():
 
 @st.dialog("upload a file")
 def upl():
-    uploaded_file = st.sidebar.file_uploader("Upload a photo", type=("jpg", "png"))
+    uploaded_file = st.file_uploader("Upload a photo", type=("jpg", "png"))
     preprocess(uploaded_file)
 
-    
+
 def preprocess(picture):
 
     if picture:
