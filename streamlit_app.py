@@ -5,7 +5,7 @@ import os
 import datetime
 
 
-IMAGE_FOLDER = "images"
+
 
 @st.dialog("Cast your vote")
 def vote():
@@ -15,7 +15,7 @@ def vote():
 
     if picture:
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        file_path = os.path.join(IMAGE_FOLDER, f"image_{timestamp}.png")
+        file_path = f"image_{timestamp}.png"
 
         with open(file_path, "wb") as file:
             file.write(picture.getbuffer())
