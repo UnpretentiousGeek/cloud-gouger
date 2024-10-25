@@ -57,9 +57,9 @@ if st.sidebar.button("Camera 📷"):
 
 
 
-if st.sidebar.file_uploader(
+if files := st.sidebar.file_uploader(
     "Upload a photo", type=("jpg", "png")):
-    preprocess(uploaded_file)
+    preprocess(files)
 
 
 if "show_img" in st.session_state:
