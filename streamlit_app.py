@@ -3,6 +3,8 @@ from openai import OpenAI
 import base64
 import os
 import datetime
+from io import BytesIO
+from PIL import Image
 
 
 st.title( "MY Lab3 question answering chatbot")
@@ -51,7 +53,8 @@ for msg in st.session_state.messages:
             if msg["content"][1].get("type") == "image_url":
                 col1, col2 = st.columns([3, 1])
                 img_data = base64.b64decode(msg["content"][1]["image_url"]["url"])
-                col2.image(img_data)
+                img = Image.open(BytesIO(img_data))
+                col2.image(img)
                 chat_msg = st.chat_message(msg["role"]) 
                 chat_msg.write(msg["content"][0].get("text"))
         else:
