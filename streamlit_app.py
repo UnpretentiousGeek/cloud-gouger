@@ -6,8 +6,6 @@ import datetime
 
 
 IMAGE_FOLDER = "images"
-if not os.path.exists(IMAGE_FOLDER):
-    os.makedirs(IMAGE_FOLDER)
 
 @st.dialog("Cast your vote")
 def vote():
