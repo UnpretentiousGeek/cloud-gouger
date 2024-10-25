@@ -51,12 +51,12 @@ def preprocess(picture):
         st.rerun()
 
 
-col1, col2 = st.sidebar.columns([1, 1])
+col1, col2 = st.columns([1, 1])
 
-if col1.sidebar.button("Camera 📷"):
+if st.sidebar.col1.button("Camera 📷"):
     cam()
 
-if col2.sidebar.button("Upload files ⬆️"):
+if st.sidebar.col2.button("Upload files ⬆️"):
     uploaded_file = st.file_uploader(
     "Upload a photo", type=("jpg", "png"))
     preprocess(uploaded_file)
