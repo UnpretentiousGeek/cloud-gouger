@@ -31,6 +31,7 @@ def vote():
     picture = st.camera_input("Take a picture", disabled=not enable)
 
     if picture:
+        st.session_state.show_img = picture
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         file_path = f"image_{timestamp}.png"
 
@@ -47,8 +48,8 @@ def vote():
 if st.sidebar.button("take image"):
     vote()
 
-if "img" in st.session_state:
-    st.sidebar.image(st.session_state.img)
+if "show_img" in st.session_state:
+    st.sidebar.image(st.session_state.show_img)
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
