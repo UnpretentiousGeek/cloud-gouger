@@ -7,7 +7,7 @@ from io import BytesIO
 from PIL import Image
 
 
-st.title( "MY Lab3 question answering chatbot")
+st.title( "Cloud Gouger 🌩️")
 st.logo("Screenshot 2024-09-18 205105.png")
 
 system_message = '''
