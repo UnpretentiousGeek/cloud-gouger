@@ -41,6 +41,7 @@ def preprocess(picture):
 
     if picture:
         st.session_state.show_img = picture
+        st.sidebar.image(st.session_state.show_img)
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         file_path = f"image_{timestamp}.png"
 
@@ -61,8 +62,6 @@ if st.sidebar.button("Upload files ⬆️"):
     upl()
 
 
-if "show_img" in st.session_state:
-    st.sidebar.image(st.session_state.show_img)
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
