@@ -40,7 +40,6 @@ def vote():
         with open(file_path, "rb") as image_file:
              st.session_state.img = base64.b64encode(image_file.read()).decode('utf-8')
         
-        st.session_state.show_img =  st.sidebar.image(picture)
         
         st.rerun()
 
@@ -48,6 +47,8 @@ def vote():
 if st.sidebar.button("take image"):
     vote()
 
+if st.session_state.img:
+    st.sidebar.image(picture)
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
