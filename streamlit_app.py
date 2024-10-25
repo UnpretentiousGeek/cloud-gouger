@@ -81,8 +81,7 @@ for msg in st.session_state.messages:
 if prompt := st.chat_input("What is up?"):
     if "show_img" in st.session_state:
         del st.session_state["show_img"]
-    if "uploaded_file" in st.session_state:
-        del st.session_state["uploaded_file"]
+    st.rerun()
     if "img" in st.session_state:
         col1, col2 = st.columns([1, 3])
         img_data = base64.b64decode(st.session_state.img)
