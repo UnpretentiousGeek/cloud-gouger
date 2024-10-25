@@ -55,9 +55,10 @@ def preprocess(picture):
 if st.sidebar.button("Camera 📷"):
     cam()
 
-if st.sidebar.button("Upload files ⬆️"):
-    uploaded_file = st.file_uploader(
+uploaded_file = st.sidebar.file_uploader(
     "Upload a photo", type=("jpg", "png"))
+
+if st.sidebar.button("Upload files ⬆️"):
     preprocess(uploaded_file)
 
 
