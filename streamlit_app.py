@@ -68,6 +68,8 @@ if "show_img" in st.session_state:
         del st.session_state["show_img"]
         st.rerun()
 
+st.sidebar.image("i-wanna-talk-about-this-really-quick-v0-ckpgs7s7jqrc1.jpg")
+
 
 for msg in st.session_state.messages:
     if msg["role"] != "system":
